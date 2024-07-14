@@ -39,7 +39,7 @@ const addPost = expressAsyncHandler(async (req, res) => {
 
 const getPosts = expressAsyncHandler(async (req, res) => {
     const username = req.params.username;
-    const posts = await User.findOne({ username }).select("posts");
+    const posts = await User.findOne({ username }).populate("posts");
 
     if (posts) {
         console.log(`Posts: ${posts}, for user: ${username}`)
@@ -70,6 +70,8 @@ const deletePost = expressAsyncHandler(async (req, res) => {
     if (postUser && reqUser && post) {
 
         await Comment.deleteMany({ post: post._id });
+
+        const user = req.user;
 
         user.posts = await user.posts.filter(p => p.toString() !== post._id.toString());
         await user.save();

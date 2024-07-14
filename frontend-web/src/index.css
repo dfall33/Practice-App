@@ -1,0 +1,44 @@
+.header-styles {
+    color: lightgray !important;
+}
+
+.post-styles {
+    width: 300px;
+    height: auto; 
+
+}
+
+/* PersonalProfileScreen.css */
+
+.profile-container {
+    padding: 20px;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.profile-info p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-height: 500px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.post-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+}

@@ -9,15 +9,26 @@ const authUser = expressAsyncHandler(async (req, res) => {
     const { email, password } = req.body; 
     const user = await User.findOne({ email }); 
 
-    if (user && user.matchPassword(password)) { 
+    console.log(`email: ${user.email}, password: ${user.password}, user: ${user.name}`)
+    console.log(`entered email: ${email}, entered password: ${password}`)
+
+    if (!user) {   
+        throw new Error ("User not found: check the email and try again.")
+    }
+    
+    const match = await user.matchPassword(password);
+    console.log(`match: ${match}`)
+
+    if (user && match) { 
         generateToken(res, user._id); 
+        console.log('ok, logged in.')
         res.status(200).json({
             _id: user._id, 
             name: user.name,
             email: user.email,
+            username: user.username,
         })
     } else {
-        res.status(401);
         throw new Error("Invalid credentials: check email and / or password for login.")
     }
 });
