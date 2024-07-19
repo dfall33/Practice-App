@@ -13,7 +13,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomeScreen from './screens/HomeScreen.jsx';
 import LoginScreen from './screens/LoginScreen.jsx';
 import RegisterScreen from './screens/RegisterScreen.jsx';
-import PersonalProfileScreen from './screens/PersonalProfileScreen.jsx';
+import ProfileScreen from './screens/ProfileScreen.jsx';
+import CreatePostScreen from './screens/CreatePostScreen.jsx';
+import SinglePostScreen from './screens/SinglePostScreen.jsx';
 
 import store from './store';
 
@@ -23,8 +25,9 @@ const router = createBrowserRouter(
       <Route path='/' element={<HomeScreen />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
-      <Route path='/profile' element={<PersonalProfileScreen />} />
-      {/* <Route path='/profile:username' element={<UserProfileScreen />} /> */}
+      <Route path='/:username' element={<ProfileScreen />} />
+      <Route path='/upload' element={<CreatePostScreen />} />
+      <Route path='/posts/:id' element={<SinglePostScreen />} />
     </Route> 
   )
 )

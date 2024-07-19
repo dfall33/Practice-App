@@ -15,23 +15,25 @@ const postsApiSlice = apiSlice.injectEndpoints({
                     }
                 }
             }),
+
             deletePost: builder.mutation({
-                query: (data) => {
+                query: (id) => {
                     return {
-                        url: `${posts_url}/delete`,
+                        url: `${posts_url}/${id}`,
                         method: 'DELETE',
-                        body: data
                     }
                 }
             }),
+
             getUserPosts: builder.query({
                 query: (username) => {
                     return {
-                        url: `${posts_url}/${username}`,
+                        url: `${posts_url}/users/${username}`,
                         method: 'GET'
                     }
                 }
             }),
+
             getIndividualPost: builder.query({
                 query: (id) => {
                     return {

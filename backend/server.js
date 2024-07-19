@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import connectDB from './config/db.js';
 
@@ -15,10 +16,14 @@ console.log('start')
 dotenv.config(); 
 connectDB();
 
+const __dirname = process.cwd();
+
 const PORT = process.env.PORT || 5000; 
 
 const app = express(); 
 app.use(express.json());
+app.use('/api/uploads', express.static(path.join(__dirname, 'backend', 'uploads'))); // Serve static files from the 'uploads' directory
+
 
 app.use(express.urlencoded({ extended: true }));
 

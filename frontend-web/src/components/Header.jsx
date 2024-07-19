@@ -51,12 +51,16 @@ const Header = () => {
                         <Nav className="ms-auto flex-column">
                             {loggedIn ? (
                                 <>
-                                    <LinkContainer className='header-styles' to={"/profile"}>
+                                    <LinkContainer className='header-styles' to={`${userInfo.username}`}>
                                         <Nav.Link>Profile</Nav.Link>
                                     </LinkContainer>
 
                                     <LinkContainer className='header-styles' to={"/explore"}>
                                         <Nav.Link>Explore</Nav.Link>
+                                    </LinkContainer>
+
+                                    <LinkContainer to={"/upload"} className='header-styles'>
+                                        <Nav.Link>Post!</Nav.Link>
                                     </LinkContainer>
                                 </> 
                             ) : 
@@ -69,6 +73,8 @@ const Header = () => {
                                     <LinkContainer to={"/register"} className='header-styles'>
                                         <Nav.Link>Register</Nav.Link>
                                     </LinkContainer>
+
+                                   
                                 </>
                             )
                             }

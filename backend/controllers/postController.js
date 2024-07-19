@@ -4,23 +4,20 @@ import User from "../models/userModel.js";
 
 const addPost = expressAsyncHandler(async (req, res) => {
 
-    const { content, caption } = req.body;
-    const user = req.user;
-    console.log(`User in post controller: ${user}`)
-    // const userPosts = await Post.find({ user: user._id });
-    // const user = await User.findById(userId);
-    console.log(`User current posts: ${user.posts}`)
+    const url = req.url; 
+    const description = req.body.description;
+    const userId = req.body._id;
 
-    if (!user) {
-        res.status(404);
-        throw new Error("User not found. Please try again.")
-    }
+    const user = await User.findById(userId);
+
+    // console.log(`IN POSTCONTROLLER: File: , Description: ${description}, User: ${userId}, user: ${user}  `)
     
     const post = await Post.create({
-        user: user._id,
-        content: content,
-        caption: caption
+        user: userId,
+        content: url,
+        caption: description
     })
+
     if (post) {
         user.posts.push(post._id);
         await user.save(); 
@@ -38,6 +35,7 @@ const addPost = expressAsyncHandler(async (req, res) => {
 
 
 const getPosts = expressAsyncHandler(async (req, res) => {
+    console.log('Get posts route')
     const username = req.params.username;
     const posts = await User.findOne({ username }).populate("posts");
 
@@ -53,6 +51,7 @@ const getPosts = expressAsyncHandler(async (req, res) => {
 
 const deletePost = expressAsyncHandler(async (req, res) => {
 
+    console.log('Delete post route')
     const postId = req.params.id;
     const post = await Post.findById(postId);
 
@@ -69,8 +68,10 @@ const deletePost = expressAsyncHandler(async (req, res) => {
 
     if (postUser && reqUser && post) {
 
-        await Comment.deleteMany({ post: post._id });
+        console.log("deleting post")
+        // await Comment.deleteMany({ post: post._id });
 
+        console.log('comments deleted')
         const user = req.user;
 
         user.posts = await user.posts.filter(p => p.toString() !== post._id.toString());
@@ -81,13 +82,28 @@ const deletePost = expressAsyncHandler(async (req, res) => {
         console.log(`User ${user.username} deleted posts. Posts now = ${user.posts}`)
 
         res.status(200).json({ message: "Post deleted successfully."});
+
     } else {
         throw new Error("Post not found. Please try again.");
     }
 }); 
 
+const getIndividualPost = expressAsyncHandler(async (req, res) => { 
+
+    console.log('Ind.Post route')
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+    console.log(`Post: ${post}`)
+
+    if (post)
+        res.status(200).json(post);
+    else 
+        throw new Error("Post not found. Please try again.")
+})
+
 export {
     addPost,
     getPosts,
-    deletePost
+    deletePost,
+    getIndividualPost
 }

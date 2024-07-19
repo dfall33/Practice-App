@@ -36,7 +36,7 @@ const LoginScreen = () => {
     useEffect( () => {
         if (userInfo) {
             console.log('user info detected, navigate to /profile (just / for now)')
-            navigate('/profile');
+            navigate(`/${userInfo.username}`);
         }
     })
 
