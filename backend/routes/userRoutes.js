@@ -10,9 +10,10 @@ import {
 
 import { protect } from "../middleware/authMiddleware.js";
 
+console.log('start userRoutes.js')
+
 // initalize a router with express 
 const router = express.Router(); 
-
 // define user routes using initialized router 
 router.post('/', registerUser); // post to /api/users to regiser user 
 router.post('/login', authUser); // post to /api/users/login to login user

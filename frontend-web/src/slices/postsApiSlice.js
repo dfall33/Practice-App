@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 
-const posts_url = '/api/posts';
+const posts_url = 'http://192.168.68.74:5000/api/posts';
 
 const postsApiSlice = apiSlice.injectEndpoints({
 
